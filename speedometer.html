@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Speedometer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            color: #00ff00;
+            font-family: monospace;
+            overflow: hidden;
+        }
+        #speed {
+            font-size: 8rem;
+            font-weight: bold;
+        }
+        #unit {
+            font-size: 2rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="speed">0</div>
+    <div id="unit">m/s</div>
+
+    <script>
+        if ("geolocation" in navigator) {
+            navigator.geolocation.watchPosition(
+                (position) => {
+                    const speed = position.coords.speed || 0;
+                    document.getElementById('speed').innerText = (speed * 3.6).toFixed(1);
+                    document.getElementById('unit').innerText = 'km/h';
+                },
+                (error) => {
+                    console.error("Error getting location:", error);
+                    alert("Unable to track speed. Please ensure location services are enabled.");
+                },
+                { enableHighAccuracy: true }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    </script>
+</body>
+</html>
