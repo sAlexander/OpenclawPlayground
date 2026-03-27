@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Picker</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f4f4f9; }
+        textarea { width: 80%; height: 150px; margin-bottom: 20px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+        button { padding: 15px 30px; font-size: 1.2rem; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        #result { margin-top: 20px; font-size: 2rem; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Random Picker</h1>
+    <textarea id="list" placeholder="Enter 5 names, one per line"></textarea>
+    <button onclick="pickRandom()">Pick Random Person</button>
+    <div id="result"></div>
+
+    <script>
+        function pickRandom() {
+            const lines = document.getElementById('list').value.split('\n').filter(line => line.trim() !== '');
+            if (lines.length === 0) {
+                alert("Please enter some names.");
+                return;
+            }
+            const randomPerson = lines[Math.floor(Math.random() * lines.length)];
+            document.getElementById('result').innerText = randomPerson;
+        }
+    </script>
+</body>
+</html>
